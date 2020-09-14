@@ -13,5 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    \Illuminate\Support\Facades\Queue::push(new \App\Jobs\TestJob());
+
+    $connection = new GearmanClient();
+    $connection->addServer('gearman');
+    \Illuminate\Support\Facades\Log::error(print_r($connection->getErrno(), true));
+    \Illuminate\Support\Facades\Log::error($connection->error());
+    /*
+
+    $connection->doBackground('testing', 'test phrase');*/
+    // \Illuminate\Support\Facades\Queue::push(new \App\Jobs\TestJob());
 });

@@ -14,7 +14,11 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     wget \
-    libgearman-dev
+    libgearman-dev \
+    telnet \
+    iputils-ping \
+    net-tools \
+    vim
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -51,3 +55,7 @@ RUN mkdir -p /home/$user/.composer && \
 WORKDIR /var/www
 
 USER $user
+
+EXPOSE 9000
+
+CMD ["php-fpm"]

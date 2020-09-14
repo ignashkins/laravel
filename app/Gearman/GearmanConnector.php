@@ -14,7 +14,6 @@ class GearmanConnector implements \Illuminate\Queue\Connectors\ConnectorInterfac
     public function connect(array $config)
     {
         $connection = new GearmanClient();
-
         $connection->addServer($config['host'], $config['port']);
 
         return new GearmanQueue($connection);
