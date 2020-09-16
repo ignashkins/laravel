@@ -43,8 +43,9 @@ return [
 
         'gearman' => [
             'driver' => 'gearman',
-            'host' => '127.0.0.1',
+            'host' => 'gearman',
             'port' => 4730,
+            'queue' => 'default',
         ],
 
         'beanstalkd' => [

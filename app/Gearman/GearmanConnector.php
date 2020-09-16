@@ -3,6 +3,7 @@
 namespace App\Gearman;
 
 use GearmanClient;
+use GearmanWorker;
 use Illuminate\Contracts\Queue\Queue;
 
 class GearmanConnector implements \Illuminate\Queue\Connectors\ConnectorInterface
@@ -13,9 +14,12 @@ class GearmanConnector implements \Illuminate\Queue\Connectors\ConnectorInterfac
      */
     public function connect(array $config)
     {
-        $connection = new GearmanClient();
-        $connection->addServer($config['host'], $config['port']);
+        $client = new GearmanClient();
+        $client->addServer($config['host'], $config['port']);
 
-        return new GearmanQueue($connection);
+        $worker = new GearmanWorker();
+        $worker->addServer($config['host'], $config['port']);
+
+        return new GearmanQueue($client, $worker, $config['queue']);
     }
 }

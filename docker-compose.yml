@@ -3,13 +3,11 @@ version: "3.7"
 services:
 
   application:
+    privileged: true
     restart: unless-stopped
     tty: true
     build:
       context: ./
-      args:
-        user: ignashkins
-        uid: 9999
       dockerfile: docker/php/Dockerfile
     image: laravel
     container_name: laravel-app
@@ -17,10 +15,12 @@ services:
     volumes:
       - ./:/var/www
       - ./docker/php/zz-docker.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - laravel
 
   database:
+    privileged: true
     restart: unless-stopped
     container_name: laravel-mysql
     image: mysql:5.7
@@ -35,6 +35,7 @@ services:
       SERVICE_NAME: mysql
 
   nginx:
+    privileged: true
     restart: unless-stopped
     tty: true
     container_name: laravel-nginx
@@ -48,10 +49,14 @@ services:
       - laravel
 
   gearman:
+    privileged: true
     restart: unless-stopped
     container_name: gearman
     build:
       context: ./
+      args:
+        user: ignashkins
+        uid: 9999
       dockerfile: docker/gearman/Dockerfile
     image: gearman
     ports:

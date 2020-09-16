@@ -16,11 +16,11 @@ class TestJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param $functionName
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
