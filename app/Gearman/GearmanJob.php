@@ -22,16 +22,21 @@ class GearmanJob extends \Illuminate\Queue\Jobs\Job implements \Illuminate\Contr
         $this->worker->addFunction($queue, [$this, 'onJob']);
     }
 
+    public function fire()
+    {
+        while (1) {
+            $this->worker->work();
+            if ($this->worker->returnCode() != GEARMAN_SUCCESS) break;
+        }
+    }
+
     public function onJob(\GearmanJob $job)
     {
         $workload = $job->workload();
 
-        Log::debug($workload);
-
         $payload = json_decode($workload, true);
 
         list($class, $method) = JobName::parse($payload['job']);
-
 
         $this->instance = $this->resolve($class);
         $this->instance->{$method}($this, $payload['data']);

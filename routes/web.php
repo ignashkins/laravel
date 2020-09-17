@@ -14,6 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', function () {
     \Illuminate\Support\Facades\Queue::push(new \App\Jobs\TestJob());
-
-
 });

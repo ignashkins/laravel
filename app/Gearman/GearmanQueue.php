@@ -37,8 +37,8 @@ class GearmanQueue extends \Illuminate\Queue\Queue implements \Illuminate\Contra
     public function push($job, $data = '', $queue = null)
     {
         $payload = json_decode($this->createPayload($job, $queue, $data));
+
         Log::debug(print_r($payload, true));
-        Log::debug(print_r(unserialize($payload->data->command), true));
 
         $this->client->doBackground(
             $this->getQueue($queue), $this->createPayload($job, $queue, $data)
@@ -61,7 +61,7 @@ class GearmanQueue extends \Illuminate\Queue\Queue implements \Illuminate\Contra
      */
     public function later($delay, $job, $data = '', $queue = null)
     {
-        // TODO: Implement later() method.
+        throw new Exception($this->notSupport);
     }
 
     /**
@@ -69,7 +69,7 @@ class GearmanQueue extends \Illuminate\Queue\Queue implements \Illuminate\Contra
      */
     public function laterOn($queue, $delay, $job, $data = '')
     {
-        // TODO: Implement laterOn() method.
+        throw new Exception($this->notSupport);
     }
 
     /**

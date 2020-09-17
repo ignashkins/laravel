@@ -15,12 +15,10 @@ class TestJob implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
-     * @param $functionName
      */
     public function __construct()
     {
-
+        Log::debug('Construct');
     }
 
     /**
@@ -30,6 +28,6 @@ class TestJob implements ShouldQueue
      */
     public function handle()
     {
-        Log::debug('TestJob');
+        Log::debug('Handle');
     }
 }
