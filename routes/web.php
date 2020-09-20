@@ -14,4 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', function () {
     return view('welcome');
+
+    // gearman job
+    // \Illuminate\Support\Facades\Queue::push(new \App\Jobs\TestJob());
 });
